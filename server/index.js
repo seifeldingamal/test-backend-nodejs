@@ -3,9 +3,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const products = require('./routes/products');
+require('dotenv-expand')(require('dotenv').config())
 
 mongoose
-    .connect("mongodb+srv://admin:admin@m01.ks9a9.mongodb.net/Products?retryWrites=true&w=majority", { 
+    .connect(process.env.MONGO_DB_URI, { 
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,

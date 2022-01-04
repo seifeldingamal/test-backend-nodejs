@@ -1,4 +1,6 @@
+const { Mongoose } = require('mongoose');
 const Product = require('../models/Product');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports.productsGet = async (req, res) => {
     const products = await Product.find();
@@ -8,7 +10,7 @@ module.exports.productsGet = async (req, res) => {
 module.exports.productsFilter = async (req, res) => {
 
     const products = await Product.find({
-        $or: [{title: req.body.title}, {category: req.body.category}]
+        $or: [{'title': req.body.title}, {'category': req.body.category}]
     });
     
     res.send(products);
@@ -29,7 +31,7 @@ module.exports.productPut = (req, res) => {
     let updates = req.body 
 
     Product.findOneAndUpdate
-        ({ _id: req.params.id }, updates)
+        ({ _id: new ObjectId(req.params.id) }, updates)
       .then
         (updatedProduct => res.json(updatedProduct))
       .catch
@@ -37,12 +39,10 @@ module.exports.productPut = (req, res) => {
 }
 
 module.exports.categoryUpdate = (req, res) => {
-    let newCat = req.body.category 
+    let updates = req.body 
 
     Product.findOneAndUpdate
-        ({ _id: req.params.id }, {
-            category: newCat
-        })
+        ({ _id:  new ObjectId(req.params.id) }, updates, {new: true, useFindAndModify: false})
       .then
         (updatedProduct => res.json(updatedProduct))
       .catch
@@ -52,7 +52,7 @@ module.exports.categoryUpdate = (req, res) => {
 
 module.exports.productDelete = (req, res) => {
     Product.findByIdAndDelete
-        (req.params.id)
+        ( new ObjectId(req.params.id))
     .then
         (() => res.json("Product deleted!"))
     .catch
