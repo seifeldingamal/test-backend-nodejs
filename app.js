@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const products = require('./routes/noauth/products');
+const products = require('./routes/noauth/products/routes/product');
 const { connect } = require("./db")
 
 db = connect()
