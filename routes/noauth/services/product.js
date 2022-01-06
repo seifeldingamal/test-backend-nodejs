@@ -1,4 +1,4 @@
-const Product = require("../../../../models/Product")
+const Product = require('../../../models/Product');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = productServices = {
@@ -21,7 +21,7 @@ module.exports = productServices = {
     },
     allProducts: () => {
         return new Promise((resolve, reject) => {
-            Product.find()
+            Product.find({})
                 .then((result) => {
                     resolve(result)
                 })
@@ -61,7 +61,7 @@ module.exports = productServices = {
     filterProducts: (keyword) => {
         return new Promise((resolve, reject) => {
             Product.find({
-                $or: [{'title': req.body.title}, {'category': req.body.category}]
+                $or: [{'title': keyword.title}, {'category': keyword.category}]
             })
             .then((result) => {
                 resolve(result)

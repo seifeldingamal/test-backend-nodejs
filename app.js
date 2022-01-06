@@ -1,20 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const products = require('./routes/noauth/products/routes/product');
 const { connect } = require("./db")
 
+
 db = connect()
+const app = express();
 
 db
 .then(() => {
-    const app = express();
 
     // Middleware
     app.use(bodyParser.json());
     app.use(cors());
 
-    app.use('/products', products);
+    const noAuthRoutes = require("./routes/noauth/routes")
+    app.use('/noauth', noAuthRoutes);
 
     const port = process.env.PORT || 5000;
 
