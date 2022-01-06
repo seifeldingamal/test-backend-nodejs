@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', productsController.productGet);
 
 // Get Filtered Products
-//router.get('/filter', productsController.productsFilter);
+router.get('/filter', productsController.productFilter);
 
 // Add Product
 router.post('/', productsController.productPost);
@@ -19,6 +19,6 @@ router.put('/:id/update', productsController.productPut);
 router.put('/:id/category', productsController.productPut);
 
 // Delete
-//router.delete('/:id/delete', productsController.productDelete);
+router.delete('/:id/delete', productsController.productDelete);
 
 module.exports = router;
