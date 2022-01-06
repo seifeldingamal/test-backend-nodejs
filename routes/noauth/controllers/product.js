@@ -42,12 +42,11 @@ module.exports = productController = {
     },
     productPut: (req, res) => {
         let { id } = req.params
-        let { updates } = req.body
+        let { body: updates } = req
 
         productServices
             .updateProduct(id, updates)
             .then((result) => {
-                console.log(result);
                 res.json({
                     success: true,
                     info: result,
