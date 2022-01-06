@@ -61,7 +61,7 @@ module.exports = productServices = {
     filterProducts: (keyword) => {
         return new Promise((resolve, reject) => {
             Product.find({
-                $or: [{'title': keyword.title}, {'category': keyword.category}]
+                $or: [{'title': keyword.title ? keyword.title : ""}, {'category': keyword.category ? keyword.category : ""}]
             })
             .then((result) => {
                 resolve(result)

@@ -3,13 +3,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { connect } = require("./db")
 
-
-db = connect()
 const app = express();
 
-db
-.then(() => {
-
+connect()
+.then((success) => {
+    console.log(success);
     // Middleware
     app.use(bodyParser.json());
     app.use(cors());
@@ -20,4 +18,7 @@ db
     const port = process.env.PORT || 5000;
 
     app.listen(port, () => console.log(`Server started on port ${port}`));
+})
+.catch((err) => {
+    console.log("It was bad " + err);
 })

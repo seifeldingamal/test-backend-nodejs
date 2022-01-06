@@ -18,7 +18,7 @@ module.exports = productController = {
             .catch((err) => {
                 res.json({
                     success: false,
-                    message: "It was bad" + err,
+                    message: "It was bad " + err,
                 })
             })
 
@@ -36,7 +36,7 @@ module.exports = productController = {
             .catch((err) => {
                 res.json({
                     success: false,
-                    message: "It was bad" + err,
+                    message: "It was bad " + err,
                 })
             })
     },
@@ -47,6 +47,7 @@ module.exports = productController = {
         productServices
             .updateProduct(id, updates)
             .then((result) => {
+                console.log(result);
                 res.json({
                     success: true,
                     info: result,
@@ -56,7 +57,7 @@ module.exports = productController = {
             .catch((err) => {
                 res.json({
                     success: false,
-                    message: "It was bad" + err,
+                    message: "It was bad " + err,
                 })
             })
     },
@@ -75,12 +76,12 @@ module.exports = productController = {
             .catch((err) => {
                 res.json({
                     success: false,
-                    message: "It was bad" + err,
+                    message: "It was bad " + err,
                 })
             })
     },
     productFilter: (req, res) => {
-        let { keyword } = req.body
+        let { body: keyword } = req
 
         productServices
             .filterProducts(keyword)
@@ -94,7 +95,7 @@ module.exports = productController = {
             .catch((err) => {
                 res.json({
                     success: false,
-                    message: "It was bad" + err,
+                    message: "It was bad " + err,
                 })
             })
     }
