@@ -1,13 +1,13 @@
 const express = require('express');
-const productsController = require('../controllers/productController');
+const productsController = require('./controllers/product');
 
 const router = express.Router();
 
 // Get Products
-router.get('/', productsController.productsGet);
+router.get('/', productsController.productGet);
 
 // Get Filtered Products
-router.get('/filter', productsController.productsFilter);
+//router.get('/filter', productsController.productsFilter);
 
 // Add Product
 router.post('/', productsController.productPost);
@@ -16,9 +16,9 @@ router.post('/', productsController.productPost);
 router.put('/:id/update', productsController.productPut);
 
 // Update Product Category
-router.put('/:id/category', productsController.categoryUpdate);
+router.put('/:id/category', productsController.productPut);
 
 // Delete
-router.delete('/:id/delete', productsController.productDelete);
+//router.delete('/:id/delete', productsController.productDelete);
 
 module.exports = router;

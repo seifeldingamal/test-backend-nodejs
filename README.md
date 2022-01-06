@@ -12,7 +12,7 @@ Your challenge is to develop an API, using Node.JS, for a product catalog manage
 - I as a user would like to be able to delete a product from my catalog;
  
 <strong>To start Application</strong>
-- Create a dotenv file in root with a variable MONGO_DB_URI={YOUR_MONGO_CONNECTION_URI}
+
 - In the project directory, you can run:
     - npm i
     - npm run server
