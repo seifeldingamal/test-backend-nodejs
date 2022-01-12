@@ -1,0 +1,199 @@
+swagger: '2.0'
+info:
+  description: This is a simple API
+  version: 1.0.0
+  title: Simple Product API
+  contact:
+    email: seifaldin.aboelella@anota.ai
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+- name: products
+  description: Operations regarding products
+
+paths:
+  /noauth/products:
+    get:
+      tags:
+      - products
+      summary: grabs all products
+      operationId: productGet
+      description: |
+        you can get all available products in the system
+      produces:
+      - application/json
+      responses:
+        200:
+          description: products found
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+    post:
+      tags:
+      - products
+      summary: adds an product item
+      operationId: productPost
+      description: Adds a product to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Product
+        description: Product to add
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        201:
+          description: Product created
+        400:
+          description: invalid input, object invalid
+          
+  /noauth/products/filter:
+    post:
+      tags:
+      - products
+      summary: finds products by title or category
+      operationId: productFilter
+      description: Finds products in system based on a filter
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Filter
+        description: Title or category filter
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            category:
+              type: string
+            
+      responses:
+        201:
+          description: Products found
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        400:
+          description: invalid input, object invalid
+  
+  /noauth/products/{id}/update:
+    put:
+      tags:
+      - products
+      summary: updates a product
+      operationId: productUpdate
+      description: Finds product by id in system then updates its properties
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - in: body
+        name: Product
+        description: Product properties to update
+        schema:
+          $ref: '#/definitions/Product'
+            
+      responses:
+        201:
+          description: Product updated
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: invalid input, object invalid
+
+  /noauth/products/{id}/category:
+    put:
+      tags:
+      - products
+      summary: updates a product
+      operationId: productCategory
+      description: Finds product by id in system then updates its category
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - in: body
+        name: Product
+        description: Product category to update
+        schema:
+          type: object
+          properties:
+            category:
+              type: string
+            
+      responses:
+        201:
+          description: Product category updated
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: invalid input, object invalid
+          
+  /noauth/products/{id}/delete:
+    delete:
+      tags:
+      - products
+      summary: deletes a product
+      operationId: productDelete
+      description: Finds product by id in system then deletes it
+      produces:
+      - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+            
+      responses:
+        201:
+          description: Product deleted
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: invalid input, param invalid
+
+definitions:
+  Product:
+    type: object
+    required:
+    - title
+    - description
+    - price
+    - category
+    properties:
+      id:
+        type: string
+        example: d290f1ee6c54
+      title:
+        type: string
+        example: Big Mac
+      description:
+        type: string
+        example: Meat in bread
+      price:
+        type: number
+        example: 15
+      category:
+        type: string
+        example: Burger
